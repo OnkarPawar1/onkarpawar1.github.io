@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onkar Pawar | Software Engineer & AI Architect</title>
+    <meta name="description" content="Portfolio of Onkar Pawar - Software Engineer specializing in PL/SQL, Cloud, and AI.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #6366f1;
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --font-main: 'Poppins', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Background Aurora */
+        .background-aurora {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.35;
+        }
+
+        .aurora-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: move 20s infinite alternate;
+        }
+
+        .shape1 { width: 500px; height: 500px; background: #4f46e5; top: -10%; left: -10%; }
+        .shape2 { width: 400px; height: 400px; background: #7c3aed; bottom: -10%; right: -10%; animation-delay: -5s; }
+        .shape3 { width: 300px; height: 300px; background: #ec4899; top: 40%; left: 40%; animation-delay: -10s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(100px, 100px) rotate(360deg); }
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .bento-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bento-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .bento-item:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .profile-name { font-size: 1.5rem; font-weight: 700; }
+        .profile-handle { color: var(--text-dim); font-size: 0.9rem; }
+        .profile-bio { font-size: 0.95rem; color: var(--text-dim); min-height: 3em; }
+
+        .journey-title { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-weight: 600; }
+        .journey-steps { display: flex; flex-direction: column; gap: 15px; }
+        .journey-step { border-left: 2px solid var(--card-border); padding-left: 15px; position: relative; }
+        .journey-step.current { border-left-color: var(--accent-color); }
+        .journey-step.current::before {
+            content: '';
+            position: absolute;
+            left: -6px; top: 0;
+            width: 10px; height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .card-social-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .social-link:hover { background: var(--accent-color); color: white; }
+
+        .skills-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+        .skills-list span {
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            color: var(--text-dim);
+        }
+
+        /* Projects Section */
+        .column-tools { grid-column: span 3; }
+        .tools-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .project-title { font-weight: 700; font-size: 1.15rem; }
+        .project-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.5; }
+        .project-link {
+            margin-top: auto;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Unique Coloring for Project Icons and Links */
+        .p-indigo { background: rgba(99, 102, 241, 0.1); color: #818cf8; }
+        .l-indigo { color: #818cf8; }
+        
+        .p-orange { background: rgba(251, 146, 60, 0.1); color: #fb923c; }
+        .l-orange { color: #fb923c; }
+
+        .p-violet { background: rgba(139, 92, 246, 0.1); color: #a78bfa; }
+        .l-violet { color: #a78bfa; }
+
+        .p-blue { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+        .l-blue { color: #60a5fa; }
+
+        .p-cyan { background: rgba(6, 182, 212, 0.1); color: #22d3ee; }
+        .l-cyan { color: #22d3ee; }
+
+        .p-emerald { background: rgba(16, 185, 129, 0.1); color: #34d399; }
+        .l-emerald { color: #34d399; }
+
+        .p-rose { background: rgba(244, 63, 94, 0.1); color: #fb7185; }
+        .l-rose { color: #fb7185; }
+
+        .p-amber { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
+        .l-amber { color: #fbbf24; }
+
+        .p-sky { background: rgba(14, 165, 233, 0.1); color: #38bdf8; }
+        .l-sky { color: #38bdf8; }
+
+        .p-teal { background: rgba(20, 184, 166, 0.1); color: #2dd4bf; }
+        .l-teal { color: #2dd4bf; }
+
+        .p-fuchsia { background: rgba(217, 70, 239, 0.1); color: #d946ef; }
+        .l-fuchsia { color: #d946ef; }
+
+        .p-ruby { background: rgba(225, 29, 72, 0.1); color: #fb7185; }
+        .l-ruby { color: #fb7185; }
+
+        .p-yellow { background: rgba(250, 204, 21, 0.1); color: #facc15; }
+        .l-yellow { color: #facc15; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .column-tools { grid-column: span 2; }
+        }
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .column-tools { grid-column: span 1; }
+            .custom-cursor { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor"></div>
+
+    <div class="background-aurora">
+        <div class="aurora-shape shape1"></div>
+        <div class="aurora-shape shape2"></div>
+        <div class="aurora-shape shape3"></div>
+    </div>
+
+    <main class="bento-grid">
+        <!-- LEFT COLUMN -->
+        <div class="bento-column">
+            <div class="bento-item card-profile">
+                <div class="profile-header">
+                    <div class="w-20 h-20 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-xl shadow-indigo-900/20">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="profile-text">
+                        <h1 class="profile-name">Onkar Pawar</h1>
+                        <p class="profile-handle">@onkarpawar1</p>
+                    </div>
+                </div>
+                <p class="profile-bio"><span id="typing-bio"></span></p>
+            </div>
+
+            <div class="bento-item card-now">
+                <div style="display: flex; align-items: center; gap: 10px; color: #4ade80; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px;">
+                    <i class="fa-solid fa-circle animate-pulse"></i> CURRENTLY
+                </div>
+                <div>
+                    <h4 style="font-weight: 600;">Building Multimodal AI Applications</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Architecting enterprise-grade pipelines using Gemini Pro, Vertex AI, and Cursor-assisted development.</p>
+                </div>
+            </div>
+
+            <div class="bento-item card-skills">
+                <h3 class="journey-title"><i class="fa-solid fa-microchip"></i> Core Expertise</h3>
+                <div class="skills-list">
+                    <span>PL/SQL Engineering</span>
+                    <span>XSLT 1.0 Transformation</span>
+                    <span>Google Cloud (GCP)</span>
+                    <span>Azure DevOps</span>
+                    <span>Python Automation</span>
+                    <span>Oracle SQL</span>
+                    <span>Multimodal AI Synthesis</span>
+                    <span>WebAssembly (WASM)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN (Merged Layout) -->
+        <div class="bento-column" style="grid-column: span 2;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="bento-item card-social-links" style="grid-column: span 2;">
+                    <a href="https://github.com/onkarpawar1" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i><span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/onkar-pawar-0a0769b6" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+                    </a>
+                    <a href="https://onkarpawar1.github.io/" target="_blank" class="social-link">
+                        <i class="fa-solid fa-globe"></i><span>Portfolio Hub</span>
+                    </a>
+                    <a href="https://github.com/onkarpawar1" target="_blank" class="social-link">
+                        <i class="fa-solid fa-file-code"></i><span>Source Code</span>
+                    </a>
+                </div>
+
+                <div class="bento-item card-journey">
+                    <h3 class="journey-title"><i class="fa-solid fa-route"></i> Professional Journey</h3>
+                    <div class="journey-steps">
+                        <div class="journey-step current">
+                            <p class="journey-date">2022 - Present</p>
+                            <h4 class="journey-role">Associate Consultant @ Capgemini</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-dim);">Oracle PL/SQL & ERP Specialist</p>
+                        </div>
+                        <div class="journey-step">
+                            <p class="journey-date">2019 - 2022</p>
+                            <h4 class="journey-role">B.E. Mechanical Engineering</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-dim);">N.B.N. Sinhgad College</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-item" style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
+                    <i class="fa-solid fa-mug-hot" style="font-size: 2.5rem; margin-bottom: 10px; color: var(--accent-color);"></i>
+                    <h3 style="font-size: 1rem;">Continuous Learner</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Always researching new AI frontiers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECTS SECTION -->
+        <div class="bento-column column-tools" id="tools-container">
+            <div class="tools-header">
+                <h2 style="font-weight: 800; font-size: 2.2rem;">Technical Portfolio</h2>
+                <div style="font-size: 0.8rem; color: var(--text-dim); background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 99px; border: 1px solid var(--card-border);">
+                    <i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> High Performance
+                </div>
+            </div>
+
+            <div class="projects-container">
+                <!-- Project 13 (NEW) -->
+                <div class="project-card">
+                    <div class="project-icon p-yellow"><i class="fa-solid fa-file-export"></i></div>
+                    <h4 class="project-title">PDF Scan-Flatten Engine</h4>
+                    <p class="project-desc">Specialized utility that converts PDFs with unknown/broken fonts into <strong>high-resolution scannable PDFs</strong>. Employs 2.0x scale rendering to ensure 1:1 visual fidelity across all devices.</p>
+                    <a href="https://gemini.google.com/share/5355dddcba80" target="_blank" class="project-link l-yellow">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 12 -->
+                <div class="project-card">
+                    <div class="project-icon p-ruby"><i class="fa-solid fa-list-check"></i></div>
+                    <h4 class="project-title">AI Model Checker</h4>
+                    <p class="project-desc">Diagnostic utility for live metadata discovery across <strong>Gemini and OpenAI</strong>. Eliminates 404 errors by fetching exact working Model ID strings directly from API endpoints.</p>
+                    <a href="https://gemini.google.com/share/d48b3345c9b7" target="_blank" class="project-link l-ruby">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 11 -->
+                <div class="project-card">
+                    <div class="project-icon p-fuchsia"><i class="fa-solid fa-code-branch"></i></div>
+                    <h4 class="project-title">PL/SQL Mega Viewer</h4>
+                    <p class="project-desc">High-performance virtualization engine designed for massive Oracle codebases (<strong>1M+ lines</strong>). Features intelligent block detection and isolated scope previewing.</p>
+                    <a href="https://gemini.google.com/share/dbb02b865f90" target="_blank" class="project-link l-fuchsia">Launch Viewer <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 10 -->
+                <div class="project-card">
+                    <div class="project-icon p-teal"><i class="fa-solid fa-code-compare"></i></div>
+                    <h4 class="project-title">XML Transformer Pro</h4>
+                    <p class="project-desc">Advanced XML-to-XML engine utilizing <strong>XSLT 1.0</strong>. Seamlessly maps source schemas to target outputs via custom stylesheets for complex data migrations.</p>
+                    <a href="https://gemini.google.com/share/ca7a3c1da1e2" target="_blank" class="project-link l-teal">Launch App <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-icon p-indigo"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h4 class="project-title">AI Video Architect V5</h4>
+                    <p class="project-desc">Flagship multimodal AI Synthesis orchestrating <strong>Gemini Pro</strong> and <strong>Vertex AI</strong> for production-ready video conversations.</p>
+                    <a href="https://onkarpawar1.github.io/AI-Gen-Video-Generator/AI_Video_Gen_V5.html" target="_blank" class="project-link l-indigo">Launch App <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-icon p-orange"><i class="fa-solid fa-bolt"></i></div>
+                    <h4 class="project-title">Flash MP3 Converter</h4>
+                    <p class="project-desc">Instant client-side MP4 to MP3 extraction leveraging <strong>Web Audio API</strong> for hardware-accelerated local processing.</p>
+                    <a href="https://gemini.google.com/share/dfa359a2e424" target="_blank" class="project-link l-orange">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-icon p-violet"><i class="fa-solid fa-scissors"></i></div>
+                    <h4 class="project-title">PDF Splicer Engine</h4>
+                    <p class="project-desc">Security-first PDF partitioning executed 100% in-browser. Ensures zero data exposure via <strong>client-side execution</strong>.</p>
+                    <a href="https://gemini.google.com/share/e321643dedea" target="_blank" class="project-link l-violet">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-icon p-blue"><i class="fa-solid fa-file-shield"></i></div>
+                    <h4 class="project-title">PDF Page Pilot Pro</h4>
+                    <p class="project-desc">Orchestration tool featuring <strong>"Flatten as Scanned"</strong> tech to handle non-standard fonts and automated metadata injection.</p>
+                    <a href="https://gemini.google.com/share/2a0a9b19b1ff" target="_blank" class="project-link l-blue">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <div class="project-icon p-cyan"><i class="fa-solid fa-images"></i></div>
+                    <h4 class="project-title">Intelligent Frame Extractor</h4>
+                    <p class="project-desc">High-precision computer vision utility for extracting frames and automated dataset preparation from complex video assets.</p>
+                    <a href="https://gemini.google.com/share/85c523af7868" target="_blank" class="project-link l-cyan">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <div class="project-icon p-emerald"><i class="fa-solid fa-database"></i></div>
+                    <h4 class="project-title">DataLinker Pro v2</h4>
+                    <p class="project-desc">Enterprise SQL utility for high-volume <strong>IN-clause generation</strong> and list reformatting for major ERP systems.</p>
+                    <a href="https://onkarpawar1.github.io/DataLinker-Pro/" target="_blank" class="project-link l-emerald">Launch Tools <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 7 -->
+                <div class="project-card">
+                    <div class="project-icon p-rose"><i class="fa-solid fa-film"></i></div>
+                    <h4 class="project-title">Media Studio Pro</h4>
+                    <p class="project-desc">Cloud TTS API integration utilizing custom rendering logic for professional-grade audio and video sequencing.</p>
+                    <a href="https://gemini.google.com/share/0264ef7456ef" target="_blank" class="project-link l-rose">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card">
+                    <div class="project-icon p-amber"><i class="fa-solid fa-eye"></i></div>
+                    <h4 class="project-title">Computer Vision OCR</h4>
+                    <p class="project-desc">Edge processing for Indic language text extraction powered by a localized <strong>Tesseract.js WASM</strong> engine.</p>
+                    <a href="https://gemini.google.com/share/1638fd2b7ca0" target="_blank" class="project-link l-amber">Review Concept <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Project 9 -->
+                <div class="project-card">
+                    <div class="project-icon p-sky"><i class="fa-solid fa-note-sticky"></i></div>
+                    <h4 class="project-title">The Digital Napkin</h4>
+                    <p class="project-desc">Minimalist productivity workspace with local-first state persistence and drag-and-drop orchestration.</p>
+                    <a href="https://onkarpawar1.github.io/TheDigitalNapkin/" target="_blank" class="project-link l-sky">Launch Site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const bioText = "Software Engineer with 4+ years of experience in PL/SQL architecture and modern AI orchestration. Self-taught Google Cloud expert and AI enthusiast building tools for the future.";
+        const typingBio = document.getElementById('typing-bio');
+        let i = 0;
+        function typeWriter() {
+            if (i < bioText.length) {
+                typingBio.innerHTML += bioText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 25);
+            }
+        }
+        window.onload = typeWriter;
+
+        const items = document.querySelectorAll('.bento-item, .project-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        items.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.6s ease-out';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
